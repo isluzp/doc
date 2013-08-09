@@ -54,15 +54,15 @@
 **尝试的修改代码
 **特性开发
 4. 远程仓库的使用 4.1 如何从远程检出一份代码
-**git clone git@github.adrd.sohuno.com:deyilong/xxxx.git
-**git clone git://github.adrd.sohuno.com/official/yyyy.git
+**git clone gitxxx.xxx.com:deyilong/xxxx.git
+**git clone git://xxx.xxx.com/official/yyyy.git
 **git remote -v  查看当前关联的远程库
 **git remote show origin;  查看origin库的相关信息
 4.2 如何提交代码到远程仓库
-**git push git@github.adrd.sohuno.com:deyilong/xxxx.git master  把本地master分支提交远程库中（如果xxxx.git没有就是创建一个新库）
+**git push git@xxx.xxx.com:deyilong/xxxx.git master  把本地master分支提交远程库中（如果xxxx.git没有就是创建一个新库）
 **git push; 默认的git push origin master;的简化形式。
 4.3 如何添加、删除一个远程仓库源
-**git remote add myrepos git://github.adrd.sohuno.com/official/yyyy.git
+**git remote add myrepos git://xxx.xxx.com/official/yyyy.git
 **git remote rm myrepos;  仅仅是删除关联的源
 4.4 如何从远程更新，合并
 **git pull myrepos; 从远端更新数据，自动合并进当前分支中
