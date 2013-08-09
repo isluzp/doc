@@ -1,0 +1,88 @@
+2. linux平台生成自己开发机ssh公钥
+**login deyilong; 选择自己用的开发账号登陆，比如deyilong.
+**ssh-keygen; （一路回车默认选项） 生成公钥
+**提取 $HOME/.ssh/id_rsa.pub文件，这个文件就是公钥文件，发送给管理员
+3.git在实际中的具体应用 3.0 开始使用 3.0.1 安装linux版本
+**安装xmlto: yum install -y xmlto
+**安装asciidoc: ./configure --prefix=/usr/local; make install
+**正常安装git: make prefix=/usr/local install install-man
+3.0.2 安装windows版本 （git-gui）
+**略
+3.0.3 准备使用前的配置 global选项
+**设置全局用户名和邮箱
+**git config --global user.name "Deyi Long"
+**git config --global user.email "deyilong@sohu-inc.com"
+3.1 git的日常开发使用 3.1.1 怎样创建个自己管理库
+**创建空库：mkdir nothing; cd nothing; git init;
+**原有代码建立版本库：1.清理不必要的文件；2.cd something; git init; 
+**3. git add .; git commit -m "comments"
+3.1.2 如何查询文件状态
+**git status
+3.1.3 怎样提交代码
+**git add; 新增、修改文件都需要使用，删除不需要。
+**git commit;
+**git commit -a -m "xxxxxx";
+3.1.4 怎样删除、移动、更名文件
+**git rm somefile; git commit -m "comments";
+**git mv somefile anotherfile; git commit -m "xxxxx";
+3.1.5 查看历史的几种方法
+**git log -5 : 只能看到提交的备注、作者、时间的基本信息
+**git log --stat 文件统计性差异
+**git log -p 对比文件详细差异
+**git log --pretty=oneline ;pretty选项功能很强大
+3.1.6 undo操作的几种类型
+**git reset HEAD somefile 取消暂存的修改
+**git checkout -- somefile 取消文件的修改
+3.1.7 标签的几种常见操作
+**git tag; 显示当前标签
+**git tag v1.5.2; 建立轻量级标签
+**git tag -a v1.5.3 -m "release reason"; 建立含附注标签
+**git show v1.5.3; 查看标签关联信息，提交差异、备注等
+3.2 分支的运用 3.2.1 分支查看
+**git branch; 显示当前库拥有的所有分支名称, *号标示当前所在分支
+3.2.2 建立、删除分支
+**git branch hotfix_1; 根据当前所在的分支建立新分支hotfix_1
+**git checkout hotfix_1; 切换到hotfix_1分支之上
+**git checkout -b hotfix_1; 上面2个动作合二为一的命令
+**git branch -d hotfix_1; 删除hotfix_1分支
+3.2.3 分支的合并与冲突解决
+**git checkout master;  切换到要合并的分支
+**git merge hotfix_1; 把hotfix_1的修改合并到master上
+**如果合并过程中出现冲突，需要根据提示自行解决冲突
+**之后，git add conflictFile; git commit -m "";
+3.2.4 常见分支式工作流程
+**尝试的修改代码
+**特性开发
+4. 远程仓库的使用 4.1 如何从远程检出一份代码
+**git clone git@github.adrd.sohuno.com:deyilong/xxxx.git
+**git clone git://github.adrd.sohuno.com/official/yyyy.git
+**git remote -v  查看当前关联的远程库
+**git remote show origin;  查看origin库的相关信息
+4.2 如何提交代码到远程仓库
+**git push git@github.adrd.sohuno.com:deyilong/xxxx.git master  把本地master分支提交远程库中（如果xxxx.git没有就是创建一个新库）
+**git push; 默认的git push origin master;的简化形式。
+4.3 如何添加、删除一个远程仓库源
+**git remote add myrepos git://github.adrd.sohuno.com/official/yyyy.git
+**git remote rm myrepos;  仅仅是删除关联的源
+4.4 如何从远程更新，合并
+**git pull myrepos; 从远端更新数据，自动合并进当前分支中
+**git fetch hisrepos; 从远端更新数据到本地的hisrepos/master中，需要手工合并
+**git merge hisrepos/master; 没有冲突情况下，合并完成
+**git checkout -b hotfix hisrepos/master; 也可以检出代码查看, 一定要先运行git fetch hisrepos;把数据拿下来
+4.5 如何删除远程库
+**git push origin :master  ;   删除远程master分支
+**git push origin :hotfix1;  删除远程hotfix1分支
+5. 发布代码
+**git archive --format=tar.gz --prefix=something-1.5.2/ -o /data/something-1.5.2.tar.gz v1.5.2
+**git archive --format=tar.gz --prefix=something-1.5.2/ v1.5.2 >/data/something-1.5.2.tar.gz
+6. 使用技巧 6.1 忽略不想要的文件类型
+**在库的根目录建立.gitignore文件，录入忽略的文件类型，支持通配符表示
+6.2 订阅代码变化rss和atom
+**通过web界面中rss、atom图标hint内容，添加订阅源时刻关注大家代码动向, 增加沟通
+6.3 分享标签
+**默认情况下,git push不会把标签信息同步到远程服务器，只能通过手工执行
+**git push origin v1.5    同步指定的标签
+**git push origin --tags  同步所有的新增标签
+**获取同步时会自动同步标签信息。
+6.4 关于中文编码
+**如果在comment中添加中文备注，请使用utf8编码，避免乱码
